@@ -111,18 +111,23 @@ class Insta:
         return unfollowing
 
     def unfollow(self, user_lis):
-        for index, value in enumerate(user_lis):
-            print(f"unfollowing user {index + 1}) {value}.....")
-            site = f"https://www.instagram.com/{value}"
-            self.driver.get(site)
-            foll = self.wait.until(
-                    EC.presence_of_element_located(
-                        (By.CSS_SELECTOR, "._acan")))
-            foll.click()
 
-            unfoll = self.wait.until(
-                    EC.presence_of_all_elements_located(
-                        (By.CSS_SELECTOR, "div.x1i10hfl:nth-child(8)")))[0]
-            unfoll.click()
+        for index, value in enumerate(user_lis):
+            try:
+                print(f"unfollowing user {index + 1}) {value}.....")
+                site = f"https://www.instagram.com/{value}"
+                self.driver.get(site)
+                foll = self.wait.until(
+                        EC.presence_of_element_located(
+                            (By.CSS_SELECTOR, "._acan")))
+                foll.click()
+
+                unfoll = self.wait.until(
+                        EC.presence_of_all_elements_located(
+                            (By.CSS_SELECTOR, "div.x1i10hfl:nth-child(8)")))[0]
+                unfoll.click()
+
+            except Exception:
+                pass
 
         self.driver.close()
