@@ -11,61 +11,75 @@ import os
 
 class Insta:
     def __init__(self):
-        load_dotenv(find_dotenv(".env"))
+        try:
+            load_dotenv(find_dotenv(".env"))
+        except Exception:
+            raise FileNotFoundError("No .env file found! try again...")
 
-        self.email = os.getenv("EMAIL")
-        self.password = os.getenv("PASSWORD")
-        self.uname = os.getenv("UNAME")
-
-        browser = input(
-            "What is the browser you are using....\ninput, \n'c' for chrome,\n'f' for firefox,\n'e' for Edge,\n's' for Safari,\n").lower()
-
-        site = f"https://www.instagram.com/"
-
-        if browser == "c":
-            self.driver = webdriver.Chrome()
-        elif browser == "f":
-            self.driver = webdriver.Firefox()
-        elif browser == "e":
-            self.driver = webdriver.Edge()
-        elif browser == "s":
-            self.driver = webdriver.Safari()
         else:
-            self.driver = webdriver.Chrome()
+            self.email = os.getenv("EMAIL")
+            self.password = os.getenv("PASSWORD")
+            self.uname = os.getenv("UNAME")
 
-        self.driver.get(site)
+            if self.email is None or self.password is None or self.uname is None:
+                raise Warning("Plese set email password and username in .env file")
 
-        self.wait = WebDriverWait(self.driver, 20)
+            browser = input(
+                "What is the browser you are using....\ninput, \n'c' for chrome,\n'f' for firefox,\n'e' for Edge,\n's' for Safari,\n").lower()
+
+            site = f"https://www.instagram.com/"
+
+            if browser == "c":
+                self.driver = webdriver.Chrome()
+            elif browser == "f":
+                self.driver = webdriver.Firefox()
+            elif browser == "e":
+                self.driver = webdriver.Edge()
+            elif browser == "s":
+                self.driver = webdriver.Safari()
+            else:
+                self.driver = webdriver.Chrome()
+
+            self.driver.get(site)
+
+            self.wait = WebDriverWait(self.driver, 20)
 
     def login(self):
 
-        print("Preparing for login...")
-        mail = self.wait.until(EC.presence_of_element_located((By.NAME, "username")))
-        mail.send_keys(self.email)
+        try:
+            print("Preparing for login...")
+            mail = self.wait.until(EC.presence_of_element_located((By.NAME, "username")))
+            mail.send_keys(self.email)
 
-        ps = self.wait.until(EC.presence_of_element_located((By.NAME, "password")))
-        ps.send_keys(self.password)
+            ps = self.wait.until(EC.presence_of_element_located((By.NAME, "password")))
+            ps.send_keys(self.password)
 
-        button = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "._acap")))
-        button.click()
+            button = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "._acap")))
+            button.click()
 
-        not_now = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "div.x1i10hfl")))
-        not_now.click()
+            not_now = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "div.x1i10hfl")))
+            not_now.click()
 
-        notifications = self.wait.until(EC.presence_of_element_located(
-            (By.XPATH, "/html/body/div[6]/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[3]/button[2]")))
-        notifications.click()
-        print("Logged in")
+            notifications = self.wait.until(EC.presence_of_element_located(
+                (By.XPATH, "/html/body/div[6]/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[3]/button[2]")))
+            notifications.click()
+            print("Logged in")
+
+        except Exception:
+            raise NameError("Wrong username or password! try again...")
 
     def make_following_list(self):
-        print("Making your following profiles list")
-        l = instaloader.Instaloader()
-        l.login(user=self.uname, passwd=self.password)
+        try:
+            print("Making your following profiles list")
+            l = instaloader.Instaloader()
+            l.login(user=self.uname, passwd=self.password)
 
-        profile = instaloader.Profile.from_username(l.context, "thamod_the_oxytann")
-        following_list = [f.username for f in profile.get_followees()]
-        print("following profiles list has been created")
-        return following_list
+            profile = instaloader.Profile.from_username(l.context, "thamod_the_oxytann")
+            following_list = [f.username for f in profile.get_followees()]
+            print("following profiles list has been created")
+            return following_list
+        except Exception:
+            raise NameError("Wrong username! try again...")
 
     def unfollowing(self, following_list):
         unfollowing = []
