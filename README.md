@@ -76,6 +76,6 @@ This Python program is used to find the profiles that you are following but that
 
 ![Static Badge](https://img.shields.io/badge/oxytann-blue?style=flat)
 
-[Oxytann](https://t.me/Loading_ggggg) 😌
+[Oxytann](https://t.me/oxytann) 😌
 
 </div>
