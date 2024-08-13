@@ -30,15 +30,27 @@ class Insta:
             site = f"https://www.instagram.com/"
 
             if browser == "c":
-                self.driver = webdriver.Chrome()
+                profile_path = "/data/chrome"
+                options = webdriver.ChromeOptions()
+                options.add_argument(f"user-data-dir={profile_path}")
+                self.driver = webdriver.Chrome(options=options)
             elif browser == "f":
-                self.driver = webdriver.Firefox()
+                profile_path = "/data/Frirefox"
+                options = webdriver.FirefoxOptions()
+                options.set_preference("profile", profile_path)
+                self.driver = webdriver.Firefox(options=options)
             elif browser == "e":
-                self.driver = webdriver.Edge()
+                profile_path = "/data/edge"
+                options = webdriver.EdgeOptions()
+                options.add_argument(f"user-data-dir={profile_path}")
+                self.driver = webdriver.Edge(options=options)
             elif browser == "s":
                 self.driver = webdriver.Safari()
             else:
-                self.driver = webdriver.Chrome()
+                profile_path = "/data/chrome"
+                options = webdriver.ChromeOptions()
+                options.add_argument(f"user-data-dir={profile_path}")
+                self.driver = webdriver.Chrome(options=options)
 
             self.driver.get(site)
 
