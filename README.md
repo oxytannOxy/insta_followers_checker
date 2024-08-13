@@ -17,7 +17,7 @@
 
 ## Instructions 😌
 
-This Python program is used to find the profiles that you are following but that have not followed you back. To find those accounts, you need to run ***"finder.py"***. Once it finishes, you will get a ".txt" file containing the profiles that have not followed you back. Then you can run ***"unfollower.py"*** to unfollow those profiles. If you want to keep following some of those profiles, simply remove their usernames from the ".txt" file before running ***"unfollower.py"***.
+This Python program is used to find the Instagram profiles that you are following but that have not followed you back. To find those accounts, you need to run ***"finder.py"***. Once it finishes, you will get a ".txt" file containing the profiles that have not followed you back. Then you can run ***"unfollower.py"*** to unfollow those profiles. If you want to keep following some of those profiles, simply remove their usernames from the ".txt" file before running ***"unfollower.py"***.
 
 ---
 
