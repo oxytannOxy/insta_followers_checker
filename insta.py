@@ -35,7 +35,7 @@ class Insta:
                 options.add_argument(f"user-data-dir={profile_path}")
                 self.driver = webdriver.Chrome(options=options)
             elif browser == "f":
-                profile_path = "/data/Frirefox"
+                profile_path = "/data/Firefox"
                 options = webdriver.FirefoxOptions()
                 options.set_preference("profile", profile_path)
                 self.driver = webdriver.Firefox(options=options)
